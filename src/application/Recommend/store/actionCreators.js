@@ -16,6 +16,11 @@ export const changeRecommendList = data => ({
   data: fromJS(data)
 });
 
+export const changeEnterLoading = (data) => ({
+  type: actionTypes.CHANGE_ENTER_LOADING,
+  data
+});
+
 export const getBannerList = () => {
   return dispatch => {
     getBannerRequest()
@@ -33,6 +38,7 @@ export const getRecommendList = () => {
     getRecommendListRequest()
       .then(data => {
         dispatch(changeRecommendList(data.result));
+        dispatch(changeEnterLoading(false))
       })
       .catch(() => {
         console.log('推荐歌单数据传输错误');

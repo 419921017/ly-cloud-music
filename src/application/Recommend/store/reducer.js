@@ -3,7 +3,8 @@ import { fromJS } from 'immutable';
 
 export const defaultState = fromJS({
   bannerList: [],
-  recommendList: []
+  recommendList: [],
+  enterLoading: true
 });
 
 const reducer = (state = defaultState, action) => {
@@ -14,6 +15,9 @@ const reducer = (state = defaultState, action) => {
     case actionTypes.CHANGE_RECOMMEND_LIST:
       return state.set('recommendList', action.data);
 
+    case actionTypes.CHANGE_ENTER_LOADING:
+      return state.set('enterLoading', action.data);
+      
     default:
       return state;
   }
