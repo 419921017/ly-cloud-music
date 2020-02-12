@@ -1,9 +1,17 @@
-import { axiosInterface } from './conf';
+import { axiosInstance } from './conf';
 
 export const getBannerRequest = () => {
-  return axiosInterface.get('/banner')
+  return axiosInstance.get('/banner')
 }
 
 export const getRecommendListRequest = () => {
-  return axiosInterface.get('/personalized')
+  return axiosInstance.get('/personalized')
+}
+
+export const getHotSingerListRequest = (count) => {
+  return axiosInstance.get(`/top/artists?offset=${count}`);
+}
+
+export const getSingerListRequest= (category, alpha, count) => {
+  return axiosInstance.get(`/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count}`);
 }

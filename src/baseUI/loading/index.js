@@ -34,6 +34,7 @@ const LoadingWrapper = styled.div`
 `;
 
 function Loading() {
+  
   return (
     <LoadingWrapper>
       <div />
