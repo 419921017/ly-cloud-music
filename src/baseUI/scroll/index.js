@@ -33,7 +33,7 @@ const Scroll = React.forwardRef((props, ref) => {
       scrollX: direction === 'horizental',
       scrollY: direction === 'vertical',
       probeType: 3,
-      click,
+      click: click,
       bounce: {
         top: bounceTop,
         bottom: bounceBottom
@@ -44,6 +44,7 @@ const Scroll = React.forwardRef((props, ref) => {
     return () => {
       setBScroll(null);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
