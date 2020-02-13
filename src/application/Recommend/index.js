@@ -2,13 +2,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { forceCheck } from 'react-lazyload';
+import { renderRoutes } from 'react-router-config';
 
 import * as actionTypes from './store/actionCreators';
 import Slider from './../../components/slider';
 import RecommendList from './../../components/list';
 import Scroll from '../../baseUI/scroll';
-import { Content } from './style';
 import Loading from './../../baseUI/loading';
+import { Content } from './style';
 
 function Recommend(props) {
   const { bannerList, recommendList, enterLoading } = props;
@@ -37,6 +38,7 @@ function Recommend(props) {
         </div>
       </Scroll>
       {!!enterLoading && <Loading />}
+      { renderRoutes(props.route.routes) }
     </Content>
   );
 }

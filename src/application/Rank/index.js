@@ -22,9 +22,7 @@ function Rank(props) {
   const rankList = list ? list.toJS() : []
 
   let [officialList, globalList] = filterIndex(rankList);
-  console.log(list)
-  console.log(officialList)
-  console.log(globalList)
+
   const enterDetail = name => {
     const idx = filterIdx(name);
     if (idx === null) {

@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { Top, Tab, TabItem } from './style';
 
 function Home(props) {
-  const { route } = props;
   return (
     <>
       <Top>
@@ -29,7 +28,7 @@ function Home(props) {
           </TabItem>
         </NavLink>
       </Tab>
-      {renderRoutes(route.routes)}
+      {renderRoutes(props.route.routes)}
     </>
   );
 }
