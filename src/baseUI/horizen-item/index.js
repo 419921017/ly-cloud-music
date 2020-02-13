@@ -37,19 +37,18 @@ function Horizen(props) {
   const { list, oldVal, title } = props;
   const { handleClick } = props;
 
-  const Category = useRef(null)
+  const Category = useRef(null);
 
   useEffect(() => {
-    let categoryDOM = Category.current
+    let categoryDOM = Category.current;
     let tagElements = categoryDOM.querySelectorAll('.list-item');
     let totalWidth = 0;
-    
-    Array.from(tagElements).forEach(ele => {
-      totalWidth += ele.offsetWidth
-    })
-    categoryDOM.style.width = `${totalWidth}px`
-  }, [])
 
+    Array.from(tagElements).forEach(ele => {
+      totalWidth += ele.offsetWidth;
+    });
+    categoryDOM.style.width = `${totalWidth}px`;
+  }, []);
 
   return (
     <Scroll direction="horizental">

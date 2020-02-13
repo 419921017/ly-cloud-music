@@ -37,7 +37,7 @@ function Singers(props) {
     pullUpRefreshDispatch
   } = props;
 
-  const scrollRef = useRef(null)
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     getHotSingerDispatch();
@@ -79,7 +79,7 @@ function Singers(props) {
   };
 
   let handleUpdateCategory = val => {
-    scrollRef && scrollRef.current.refresh()
+    scrollRef && scrollRef.current.refresh();
     if (val) {
       if (category === val) {
         setCategory('');
@@ -92,20 +92,18 @@ function Singers(props) {
   };
 
   let handleUpdateAlpha = val => {
+    scrollRef && scrollRef.current.refresh();
 
-    scrollRef && scrollRef.current.refresh()
-
-  if (val) {
-    if (alpha === val) {
-      setAlpha('');
-      getHotSingerDispatch();
-    } else {
-      setAlpha(val);
-      updateDispatch(category, val);
+    if (val) {
+      if (alpha === val) {
+        setAlpha('');
+        getHotSingerDispatch();
+      } else {
+        setAlpha(val);
+        updateDispatch(category, val);
+      }
     }
-  }
   };
-
 
   const handlePullUp = () => {
     pullUpRefreshDispatch(category, alpha, category === '', pageCount);
