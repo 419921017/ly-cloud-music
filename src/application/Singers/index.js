@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { connect } from 'react-redux';
 import LazyLoad, { forceCheck } from 'react-lazyload';
 
@@ -17,10 +18,19 @@ import {
   changeEnterLoading,
   refreshMoreHotSingerList
 } from './store/actionCreator';
+import {
+  Data,
+  CreategoryDataContext,
+  CHANGE_CREATEGORY,
+  CHANGE_ALPHA
+} from './data';
 
 function Singers(props) {
-  let [category, setCategory] = useState('');
-  let [alpha, setAlpha] = useState('');
+  // let [category, setCategory] = useState('');
+  // let [alpha, setAlpha] = useState('');
+
+  const { data, dispatch } = useContext(CreategoryDataContext);
+  const { category, alpha } = data.toJS();
 
   const {
     singerList,
@@ -40,7 +50,9 @@ function Singers(props) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    getHotSingerDispatch();
+    if (!singerList.size) {
+      getHotSingerDispatch();
+    }
   }, []);
 
   // 渲染函数，返回歌手列表
@@ -80,29 +92,50 @@ function Singers(props) {
 
   let handleUpdateCategory = val => {
     scrollRef && scrollRef.current.refresh();
-    if (val) {
-      if (category === val) {
-        setCategory('');
-        getHotSingerDispatch();
-      } else {
-        setCategory(val);
-        updateDispatch(val, alpha);
-      }
-    }
+    console.log(`category:${category}`, `val:${val}`, `alpha:${alpha}`);
+    dispatch({ type: CHANGE_CREATEGORY, data: val });
+    updateDispatch(val, alpha);
+
+    // if (val) {
+    //   if (category === val) {
+    //     // setCategory('');
+    //     dispatch({ type: CHANGE_CREATEGORY, data: '' });
+    //     // getHotSingerDispatch();
+    //   } else {
+    //     // setCategory(val);
+    //     dispatch({ type: CHANGE_CREATEGORY, data: val });
+    //   }
+    // }
+    // if (!category && !alpha) {
+    //   getHotSingerDispatch();
+    // } else {
+
+    //   updateDispatch(val, alpha);
+    // }
   };
 
   let handleUpdateAlpha = val => {
     scrollRef && scrollRef.current.refresh();
+    dispatch({ type: CHANGE_ALPHA, data: val });
+    updateDispatch(category, val);
 
-    if (val) {
-      if (alpha === val) {
-        setAlpha('');
-        getHotSingerDispatch();
-      } else {
-        setAlpha(val);
-        updateDispatch(category, val);
-      }
-    }
+    // if (val) {
+    //   if (alpha === val) {
+    //     // setAlpha('');
+    //     dispatch({ type: CHANGE_ALPHA, data: '' });
+    //     // getHotSingerDispatch();
+    //   } else {
+    //     // setAlpha(val);
+    //     dispatch({ type: CHANGE_ALPHA, data: val });
+    //   }
+    // }
+
+    // if (!category && !alpha) {
+    //   getHotSingerDispatch();
+    // } else {
+    //   updateDispatch(category, val);
+    // }
+
   };
 
   const handlePullUp = () => {
@@ -115,34 +148,36 @@ function Singers(props) {
 
   return (
     <div>
-      <NavContainer>
-        <Horizen
-          list={categoryTypes}
-          title={'分类 (默认热门):'}
-          handleClick={val => handleUpdateCategory(val)}
-          oldVal={category}
-        />
-        <Horizen
-          list={alphaTypes}
-          title={'首字母:'}
-          handleClick={val => handleUpdateAlpha(val)}
-          oldVal={alpha}
-        />
-      </NavContainer>
+      <Data>
+        <NavContainer>
+          <Horizen
+            list={categoryTypes}
+            title={'分类 (默认热门):'}
+            handleClick={val => handleUpdateCategory(val)}
+            oldVal={category}
+          />
+          <Horizen
+            list={alphaTypes}
+            title={'首字母:'}
+            handleClick={val => handleUpdateAlpha(val)}
+            oldVal={alpha}
+          />
+        </NavContainer>
 
-      <ListContainer>
-        <Scroll
-          pullUp={handlePullUp}
-          pullDown={handlePullDown}
-          pullUpLoading={pullUpLoading}
-          pullDownLoading={pullDownLoading}
-          onScroll={forceCheck}
-          ref={scrollRef}
-        >
-          {renderSingerList()}
-        </Scroll>
-        {!!enterLoading && <Loading />}
-      </ListContainer>
+        <ListContainer>
+          <Scroll
+            pullUp={handlePullUp}
+            pullDown={handlePullDown}
+            pullUpLoading={pullUpLoading}
+            pullDownLoading={pullDownLoading}
+            onScroll={forceCheck}
+            ref={scrollRef}
+          >
+            {renderSingerList()}
+          </Scroll>
+          {!!enterLoading && <Loading />}
+        </ListContainer>
+      </Data>
     </div>
   );
 }
