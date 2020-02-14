@@ -1,4 +1,4 @@
-import { RankTypes } from "./conf";
+import { RankTypes } from './conf';
 
 export const getCount = count => {
   if (count < 0) return;
@@ -25,12 +25,14 @@ export const debounce = (func, delay) => {
 };
 
 export const filterIndex = rankList => {
-  const globalStartIndex = rankList.findIndex((item, i) => item.tracks && item.tracks.length && !rankList[i+1].tracks.length)
-  let officialList = rankList.slice (0, globalStartIndex + 1);
-  let globalList = rankList.slice (globalStartIndex + 1);
-  return [officialList, globalList]
+  const globalStartIndex = rankList.findIndex(
+    (item, i) =>
+      item.tracks && item.tracks.length && !rankList[i + 1].tracks.length
+  );
+  let officialList = rankList.slice(0, globalStartIndex + 1);
+  let globalList = rankList.slice(globalStartIndex + 1);
+  return [officialList, globalList];
 };
-
 
 //找出排行榜的编号
 export const filterIdx = name => {
@@ -42,10 +44,12 @@ export const filterIdx = name => {
 
 // 处理歌手列表拼接歌手名字
 export const getName = list => {
-  let str = "";
-  list.map ((item, index) => {
-    str += index === 0 ? item.name : "/" + item.name;
+  let str = '';
+  list.map((item, index) => {
+    str += index === 0 ? item.name : '/' + item.name;
     return item;
   });
   return str;
 };
+
+export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
