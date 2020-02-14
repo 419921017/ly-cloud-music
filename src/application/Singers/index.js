@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { connect } from 'react-redux';
 import LazyLoad, { forceCheck } from 'react-lazyload';
+import { renderRoutes } from 'react-router-config';
 
 import Horizen from './../../baseUI/horizen-item';
 import Loading from './../../baseUI/loading';
@@ -55,6 +56,10 @@ function Singers(props) {
     }
   }, []);
 
+  const enterDetail = item => {
+    props.history.push(`/singers/${item.id}`)
+  }
+
   // 渲染函数，返回歌手列表
   const renderSingerList = () => {
     const list = singerList ? singerList.toJS() : [];
@@ -62,7 +67,7 @@ function Singers(props) {
       <List>
         {list.map((item, index) => {
           return (
-            <ListItem key={item.accountId + '' + index}>
+            <ListItem key={item.accountId + '' + index} onClick={() => {enterDetail(item)}}>
               <div className="img_wrapper">
                 <LazyLoad
                   placeholder={
@@ -135,7 +140,6 @@ function Singers(props) {
     // } else {
     //   updateDispatch(category, val);
     // }
-
   };
 
   const handlePullUp = () => {
@@ -178,6 +182,7 @@ function Singers(props) {
           {!!enterLoading && <Loading />}
         </ListContainer>
       </Data>
+      {renderRoutes(props.route.routes)}
     </div>
   );
 }

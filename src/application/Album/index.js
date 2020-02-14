@@ -11,7 +11,7 @@ import style from './../../assets/gloabl-style';
 import { getAlbumList, changeEnterLoading } from './store/actionCreator';
 import Loading from './../../baseUI/loading';
 
-export const HEADER_HEIGHT = 45;
+import { HEADER_HEIGHT } from './../../api/conf';
 
 function Album(props) {
   const { id } = props.match.params;

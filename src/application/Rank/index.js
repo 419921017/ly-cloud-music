@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getRankList } from './store/actionCreator';
 import { renderRoutes } from 'react-router-config';
 
-import { filterIndex, filterIdx } from '../../api/utils';
+import { filterIndex } from '../../api/utils';
 import { List, ListItem, SongList, Container } from './style';
 import Scroll from '../../baseUI/scroll';
 import Loading from '../../baseUI/loading';
