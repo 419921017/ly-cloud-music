@@ -5,7 +5,7 @@ import Recommend from './../application/Recommend';
 import Singers from './../application/Singers';
 import Rank from './../application/Rank';
 
-import Album from './../application/Album'
+import Album from './../application/Album';
 
 export default [
   {
@@ -15,7 +15,7 @@ export default [
       {
         path: '/',
         exact: true,
-        render: () => <Redirect to={"/recommend"}/>
+        render: () => <Redirect to={'/recommend'} />
       },
       {
         path: '/recommend',
@@ -33,8 +33,14 @@ export default [
       },
       {
         path: '/rank',
-        component: Rank
-      },
+        component: Rank,
+        routes: [
+          {
+            path: '/rank/:id',
+            component: Album
+          }
+        ]
+      }
     ]
   }
-]
+];

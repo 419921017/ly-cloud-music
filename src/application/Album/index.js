@@ -23,7 +23,7 @@ function Album(props) {
 
   const [isMarquee, setIsMarquee] = useState(false);
 
-  const [title, setTitle] = useState('歌单Á');
+  const [title, setTitle] = useState('歌单');
 
   const HeaderRef = useRef();
 

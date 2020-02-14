@@ -11,7 +11,6 @@ import Loading from '../../baseUI/loading';
 import { EnterLoading } from './../Singers/style';
 
 function Rank(props) {
-
   const { rankList: list, loading } = props;
   const { getRankListDataDispatch } = props;
 
@@ -19,16 +18,12 @@ function Rank(props) {
     getRankListDataDispatch();
   }, []);
 
-  const rankList = list ? list.toJS() : []
+  const rankList = list ? list.toJS() : [];
 
   let [officialList, globalList] = filterIndex(rankList);
 
-  const enterDetail = name => {
-    const idx = filterIdx(name);
-    if (idx === null) {
-      alert('暂无相关数据');
-      return;
-    }
+  const enterDetail = item => {
+    props.history.push(`/rank/${item.id}`);
   };
 
   const renderRankList = (list, global) => {
@@ -36,10 +31,10 @@ function Rank(props) {
       <List globalRank={global}>
         {list.map(item => (
           <ListItem
-            key={item.coverImgId}
+            key={item.id}
             tracks={item.tracks}
             onClick={() => {
-              enterDetail(item.name);
+              enterDetail(item);
             }}
           >
             <div className="img_wrapper">
